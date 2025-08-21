@@ -1,0 +1,47 @@
+
+#containerForm{
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#formUsuario{
+    width: 50%;
+    height: 90vh;
+
+    background: rgba(255, 255, 255, 0.17);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.containerNome,
+.containerEmail,
+.containerPassword,
+.containerBtn{
+    width: 100%;
+    height: auto;
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* border: 1px solid red; */
+}
+#lblNome,
+#lblEmail,
+#lblPassword{
+    font-weight: 300;
+    font-size: 20px;
+}

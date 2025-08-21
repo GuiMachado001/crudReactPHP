@@ -1,0 +1,31 @@
+button[type="submit"]{
+    min-width: 150px;
+    padding: 0.8em 1.75em;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: 300;
+    font-size: 17px;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+
+    background: transparent;
+    border-radius: 6px;
+    border: 2px solid #038C3E;
+    color: black;
+}
+
+button[type="reset"]{
+    min-width: 150px;
+    padding: 0.8em 1.75em;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: 300;
+    font-size: 17px;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+
+    background: transparent;
+    border-radius: 6px;
+    border: 2px solid #C00000;
+    color: black;
+}
