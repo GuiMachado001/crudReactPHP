@@ -1,0 +1,35 @@
+<?php
+require_once __DIR__ . '/../controller/Usuario.php';
+
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+$data = json_decode(file_get_contents("php://input"), true);
+
+$acao = $_GET['acao'] ?? '';
+
+$usuario = new Usuario();
+
+switch($acao){
+    case 'cadastrar':
+        $usuario->cadastrar($data);
+        break;
+    case 'editar':
+        $usuario->editar($data);
+        break;
+    case 'excluir':
+        $usuario->excluir($data);
+        break;
+    default:
+        echo json_encode([
+            "status" => "error",
+            "message" => "Ação inválida"
+        ]);
+}

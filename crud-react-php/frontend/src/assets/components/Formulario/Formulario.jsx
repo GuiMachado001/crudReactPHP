@@ -9,17 +9,37 @@ import { useRef } from 'react';
 function Formulario(){
     const formRef = useRef(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const form = formRef.current;
         const formData = {
             nome: form.nome.value,
             email: form.email.value,
-            senha: form.senha.value
+            senha: form.senha.value,
+        };
+        
+        console.log(formData);
+
+        try {
+            const response = await fetch(
+            "http://localhost/crudReactPHP/crud-react-php/backend/app/action/action-usuario.php?acao=cadastrar",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            }
+            );
+
+            const result = await response.json();
+            console.log("Resposta do PHP:", result);
+        
+
+        } catch (error) {
+            console.log("Error: ", error);
         }
-        console.log(formData); 
-    }
+    };
+
 
     return(
         <section id='containerForm'>
