@@ -1,0 +1,17 @@
+body {
+  cursor: none; /* esconder o cursor padrão */
+}
+
+.cursor {
+  width: 30px;
+  height: 30px;
+  /* background: rgba(111, 0, 255, 0.7); */
+  border: 2px solid #fff;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  mix-blend-mode: difference; /* dá um efeito maneiro de contraste */
+  z-index: 100;
+}

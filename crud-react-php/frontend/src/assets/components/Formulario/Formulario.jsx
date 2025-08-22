@@ -5,6 +5,8 @@ import ButtonSubmit from '../Buttons/ButtonSubmit';
 import ButtonCancel from '../Buttons/ButtonCancel';
 
 import { useRef } from 'react';
+import Swal from 'sweetalert2';
+
 
 function Formulario(){
     const formRef = useRef(null);
@@ -33,6 +35,16 @@ function Formulario(){
 
             const result = await response.json();
             console.log("Resposta do PHP:", result);
+
+            Swal.fire({
+                title: "Cadastrado com sucesso",
+                text: 'O usuário foi cadastrado com sucesso!!',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            }).then(() => {
+                form.reset();
+            });
+            
         
 
         } catch (error) {
