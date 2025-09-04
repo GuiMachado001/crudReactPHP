@@ -4,7 +4,7 @@ require_once __DIR__ . '/../model/Database.php';
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *"); // ou "http://localhost:5173" durante dev
-header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -12,22 +12,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-$data = json_decode(file_get_contents("php://input"), true);
-
-class Usuario{
+class Usuario {
     public int $id_usuario;
     public string $nome;
     public string $email;
     public string $senha;
 
-    public function cadastrar($data){
+    // Cadastrar usuário
+    public function cadastrar($data) {
         $db = new Database('usuario');
 
-        if($data){
+        if ($data) {
             $nome = $data["nome"];
             $email = $data["email"];
             $senha = $data["senha"];
 
+            // Criptografa a senha
             $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
             $res = $db->insert([
@@ -39,17 +39,41 @@ class Usuario{
             $response = [
                 "status" => "success",
                 "message" => "Usuário cadastrado com sucesso",
-                "dados" => $data
+                "dados" => [
+                    "id" => $res, // id retornado do insert
+                    "nome" => $nome,
+                    "email" => $email
+                ]
             ];
             
             echo json_encode($response);
-        }else{
+        } else {
             echo json_encode([
                 "status" => "error",
                 "message" => "Nenhum dado recebido",
             ]);
         }
-
-
     }
+
+    // Listar usuários
+    public function listar() {
+        $db = new Database('usuario');
+
+        try {
+            // Buscar todos os usuários
+            $res = $db->select()->fetchAll(PDO::FETCH_ASSOC);
+
+            echo json_encode([
+                "status" => "success",
+                "data" => $res
+            ]);
+        } catch (Exception $e) {
+            echo json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
+        }
+    }
+
+    
 }
