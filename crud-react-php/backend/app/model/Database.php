@@ -73,4 +73,28 @@ class Database{
         $query = 'SELECT '.$fields.' FROM '.$this->table. ' '.$where.' '.$order.' '.$limit ;
         return $this->execute($query);
     }
+
+    public function delete($where){
+        $query = 'DELETE FROM '.$this->table.' WHERE '.$where;
+
+        $res = $this->execute($query);
+        $res = $res->rowCount();
+
+        if($res == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+public function update($where, $array){
+    $fields = array_keys($array); // ✅ CORRETO
+    $values = array_values($array);
+
+    // Monta a query: nome=?, email=?, ...
+    $query = 'UPDATE '.$this->table.' SET '.implode('=?, ', $fields). '=? WHERE '.$where;
+
+    return $this->execute($query, $values); // Passe os valores para o execute
+}
+
 }

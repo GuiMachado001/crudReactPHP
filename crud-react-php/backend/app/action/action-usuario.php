@@ -23,10 +23,19 @@ try {
             $usuario->cadastrar($data);
             break;
         case 'editar':
+            if(!isset($_GET['id'])){
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "ID do usuário não fornecido"
+                ]);
+                exit;
+            }
+            $usuario->id_usuario = (int) $_GET['id'];
             $usuario->editar($data);
             break;
         case 'excluir':
-            $usuario->excluir($data);
+            $usuario->id_usuario = $_GET['id'];
+            $usuario->excluir();
             break;
         case 'listar':
             $usuario->listar();

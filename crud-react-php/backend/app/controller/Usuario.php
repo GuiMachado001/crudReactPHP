@@ -75,5 +75,53 @@ class Usuario {
         }
     }
 
+public function excluir() {
+    try {
+        $db = new Database('usuario');
+        $res = $db->delete('id_usuario = ' . $this->id_usuario);
+
+        echo json_encode([
+            "status" => "success",
+            "data" => $res
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => $e->getMessage()
+        ]);
+    }
+}
+
+public function editar($data){
+    if(!$this->id_usuario) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "ID do usuário não definido"
+        ]);
+        return;
+    }
+
+    try {
+        $db = new Database('usuario');
+
+        $res = $db->update('id_usuario = '.$this->id_usuario, [
+            'nome' => $data['nome'],
+            'email' => $data['email']
+        ]);
+
+        echo json_encode([
+            "status" => "success",
+            "message" => "Usuário atualizado com sucesso"
+        ]);
+    } catch(Exception $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => $e->getMessage()
+        ]);
+    }
+}
+
+
+
     
 }
